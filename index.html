@@ -161,72 +161,9 @@
     .section-cta { width: 100%; }
   }
 
-  /* ========== TOP TIMER BAR ========== */
-  .top-timer {
-    position: fixed;
-    inset-inline: 0;
-    top: 0;
-    z-index: 60;
-    background: linear-gradient(90deg, var(--pink-deep), var(--pink-mid), var(--pink-deep));
-    color: #fff;
-    box-shadow: 0 4px 18px rgba(184, 92, 120, 0.28);
-  }
-  .top-timer__inner {
-    max-width: 1180px;
-    margin-inline: auto;
-    padding: 8px clamp(12px, 4vw, 24px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .top-timer__label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .top-timer__digits {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .top-timer__block {
-    min-width: 42px;
-    padding: 4px 6px;
-    background: rgba(255,255,255,0.16);
-    border: 1px solid rgba(255,255,255,0.28);
-    border-radius: 8px;
-    text-align: center;
-  }
-  .top-timer__num {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.1;
-  }
-  .top-timer__unit {
-    font-size: 8.5px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0.9;
-  }
-  .top-timer__sep {
-    font-weight: 700;
-    font-size: 1rem;
-    opacity: 0.85;
-  }
-  @media (max-width: 480px) {
-    .top-timer__label { font-size: 10px; letter-spacing: 0.06em; }
-    .top-timer__block { min-width: 36px; padding: 3px 4px; }
-    .top-timer__num { font-size: 1rem; }
-  }
-
   /* ========== NAVBAR ========== */
   .navbar {
-    position: fixed; inset-inline: 0; top: 44px; z-index: 50;
+    position: fixed; inset-inline: 0; top: 0; z-index: 50;
     background: transparent;
     transition: background 0.35s ease, box-shadow 0.35s ease;
   }
@@ -315,7 +252,7 @@
   .hero {
     min-height: 100svh;
     display: flex; align-items: center; justify-content: center;
-    padding: 170px 0 80px;
+    padding: 140px 0 80px;
     text-align: center;
     position: relative;
   }
@@ -1004,28 +941,6 @@
 </head>
 <body>
 
-<div class="top-timer" id="topTimer" role="status" aria-live="polite">
-  <div class="top-timer__inner">
-    <span class="top-timer__label">⏰ Oferta termina hoje em</span>
-    <div class="top-timer__digits">
-      <div class="top-timer__block">
-        <div class="top-timer__num" id="timerH">00</div>
-        <div class="top-timer__unit">hrs</div>
-      </div>
-      <span class="top-timer__sep">:</span>
-      <div class="top-timer__block">
-        <div class="top-timer__num" id="timerM">00</div>
-        <div class="top-timer__unit">min</div>
-      </div>
-      <span class="top-timer__sep">:</span>
-      <div class="top-timer__block">
-        <div class="top-timer__num" id="timerS">00</div>
-        <div class="top-timer__unit">seg</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <nav class="navbar" id="navbar">
   <div class="navbar__inner">
     <a href="#" class="navbar__brand">Glowa</a>
@@ -1678,42 +1593,6 @@
     startAuto();
   })();
 
-  /* Countdown until midnight today */
-  (function () {
-    const hEl = document.getElementById('timerH');
-    const mEl = document.getElementById('timerM');
-    const sEl = document.getElementById('timerS');
-    if (!hEl || !mEl || !sEl) return;
-
-    function pad(n) { return String(n).padStart(2, '0'); }
-
-    function getEndOfToday() {
-      const end = new Date();
-      end.setHours(24, 0, 0, 0);
-      return end.getTime();
-    }
-
-    function tick() {
-      const now = Date.now();
-      let diff = getEndOfToday() - now;
-      if (diff <= 0) {
-        hEl.textContent = '00';
-        mEl.textContent = '00';
-        sEl.textContent = '00';
-        return;
-      }
-      const totalSec = Math.floor(diff / 1000);
-      const h = Math.floor(totalSec / 3600);
-      const m = Math.floor((totalSec % 3600) / 60);
-      const s = totalSec % 60;
-      hEl.textContent = pad(h);
-      mEl.textContent = pad(m);
-      sEl.textContent = pad(s);
-    }
-
-    tick();
-    setInterval(tick, 1000);
-  })();
 </script>
 </body>
 </html>
